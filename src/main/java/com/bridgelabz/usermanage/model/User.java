@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,8 +18,8 @@ import lombok.Data;
 @Data
 public class User {
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String fullName;
 	private String username;
@@ -27,8 +28,11 @@ public class User {
 	private String password;
 	private String confirmPassword;
 	@OneToOne(cascade = {CascadeType.ALL})
-	private Address address = new Address();
+	@JoinColumn(unique = true)
+	private Address address;
 	private LocalDateTime registeredDate;
+	private LocalDateTime updatedDate;
+	
 
 	
 	
